@@ -68,7 +68,9 @@ public class LlibreOpsBasic {
 	/**
 	 * Guarda a bbdd l'estat del llibre indicat
 	 */
+	@Transactional
 	public void modifica (Llibre llibre) {
+		entityManager.merge(llibre);
 	}
 	
 	/**
