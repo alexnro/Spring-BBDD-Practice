@@ -19,11 +19,16 @@ public class LlibreOpsBasic {
 	@PersistenceContext
 	EntityManager entityManager = null;
 
+	private Llibre findLlibre(String isbn) {
+		Llibre llibre = entityManager.find(Llibre.class, isbn);
+		return llibre;
+	}
+
 	/**
 	 * Retorna el llibre amb l'ISBN indicat o, si no existeix, llança un LlibreNoExisteixException
 	 */
 	public Llibre carrega (String isbn) throws LlibreNoExisteixException {
-		Llibre llibre = entityManager.find(Llibre.class, isbn);
+		Llibre llibre = findLlibre(isbn);
 		if (llibre != null) {
 			return llibre;
 		} else {
@@ -56,7 +61,7 @@ public class LlibreOpsBasic {
 	 */
 	@Transactional
 	public boolean elimina (String isbn) {
-		Llibre llibre = entityManager.find(Llibre.class, isbn);
+		Llibre llibre = findLlibre(isbn);
 		if (llibre != null) {
 			entityManager.remove(llibre);
 			return true;
@@ -79,7 +84,7 @@ public class LlibreOpsBasic {
 	 */
 	@Transactional
 	public boolean existeix (String isbn) {
-		Llibre llibre = entityManager.find(Llibre.class, isbn);
+		Llibre llibre = findLlibre(isbn);
 		if (llibre != null) {
 			return true;
 		} else {
