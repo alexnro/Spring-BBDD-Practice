@@ -96,8 +96,14 @@ public class LlibreOpsBasic {
 	 * Retorna quina es la recomanacio per el llibre indicat
 	 * Si el llibre indicat no existeix, retorna null
 	 */
+	@Transactional
 	public Recomanacio recomenacioPer (String isbn) {
-		return null;
+		Llibre llibre = findLlibre(isbn);
+		if (llibre != null) {
+			return llibre.getRecomanacio();
+		} else {
+			return null;
+		}
 	}
 	
 }
