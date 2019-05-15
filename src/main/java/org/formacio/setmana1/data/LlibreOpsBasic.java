@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 /**
  * Modifica aquesta classe per tal que sigui un component Spring que realitza les 
@@ -33,7 +34,19 @@ public class LlibreOpsBasic {
 	/**
 	 * Sense sorpreses: dona d'alta un nou llibre amb les propietats especificaques
 	 */
+	@Transactional
 	public void alta (String isbn, String autor, Integer pagines, Recomanacio recomanacio, String titol) {
+		Llibre llibre = new Llibre();
+		if (llibre.getIsbn() != isbn) {
+			llibre.setIsbn(isbn);
+			llibre.setAutor(autor);
+			llibre.setPagines(pagines);
+			llibre.setRecomanacio(recomanacio);
+			llibre.setTitol(titol);
+			entityManager.persist(llibre);
+		} else {
+			;
+		}
 	}
 	
 	/**
