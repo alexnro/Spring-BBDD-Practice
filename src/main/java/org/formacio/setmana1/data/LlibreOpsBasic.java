@@ -77,8 +77,14 @@ public class LlibreOpsBasic {
 	 * Retorna true o false en funcio de si existeix un llibre amb aquest ISBN
 	 * (Aquest metode no llanca excepcions!)
 	 */
+	@Transactional
 	public boolean existeix (String isbn) {
-		return false;
+		Llibre llibre = entityManager.find(Llibre.class, isbn);
+		if (llibre != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
