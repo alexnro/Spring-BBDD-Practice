@@ -19,7 +19,7 @@ public class LlibreOpsBasic {
 	@PersistenceContext
 	EntityManager entityManager = null;
 
-	private Llibre findLlibre(String isbn) {
+	public Llibre findLlibre(String isbn) {
 		Llibre llibre = entityManager.find(Llibre.class, isbn);
 		return llibre;
 	}
@@ -104,6 +104,12 @@ public class LlibreOpsBasic {
 		} else {
 			return null;
 		}
+	}
+
+	@Transactional
+	public String getTitolIIsbn(String titol) {
+		Llibre llibre = findLlibre(titol);
+		return "Titol " + llibre.getTitol() + " y ISBN " + llibre.getIsbn();
 	}
 	
 }
